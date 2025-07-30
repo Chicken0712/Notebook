@@ -21,14 +21,14 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final doc = await db.collection('users').doc(uid).get();
 
     if (doc.exists) {
-      final data = doc.data()!;
+      final exercises = doc.exercises()!;
       return User(
         id: uid,
-        name: data['name'] ?? '',
+        name: exercises['name'] ?? '',
         email: email,
-        gender: data['gender'] ?? '',
-        age: data['age'] ?? 0,
-        avatarUrl: data['avatarUrl'] ?? '',
+        gender: exercises['gender'] ?? '',
+        age: exercises['age'] ?? 0,
+        avatarUrl: exercises['avatarUrl'] ?? '',
       );
     } else {
       // Nếu user không tồn tại trong Firestore, tạo bản ghi mặc định

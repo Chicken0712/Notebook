@@ -7,7 +7,7 @@ class WorkoutPlanRepository {
 
   Future<List<WorkoutPlanModel>> fetchWorkoutPlans() async {
     final snapshot = await _firestore.collection('workout_plans').get();
-    //print(snapshot.docs.map((doc) => doc.data()));
+    //print(snapshot.docs.map((doc) => doc.exercises()));
     return snapshot.docs.map((doc) => WorkoutPlanModel.fromFirestore(doc)).toList();
   }
 }
