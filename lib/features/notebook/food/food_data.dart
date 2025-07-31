@@ -1,5 +1,6 @@
 import 'food_model.dart';
 
+
 List<Food> foodSamples = [
   Food(
     name: "Ức gà luộc",
@@ -12,7 +13,7 @@ List<Food> foodSamples = [
     description: "Ức gà không da, luộc chín, giàu protein và ít béo.",
     brand: "—",
     origin: "Việt Nam",
-    imageUrl: "assets/food/banana.webp",
+    image: "assets/foods/breast.webp",
   ),
   Food(
     name: "Trứng gà",
@@ -24,7 +25,7 @@ List<Food> foodSamples = [
     unit: "100g (~2 quả)",
     description: "Thực phẩm giàu dinh dưỡng, chứa đầy đủ axit amin thiết yếu.",
     origin: "Việt Nam",
-    imageUrl: "assets/food/egg.webp",
+    image: "assets/foods/egg.webp",
   ),
   Food(
     name: "Yến mạch cán dẹt",
@@ -37,7 +38,7 @@ List<Food> foodSamples = [
     description: "Nguồn carbs phức tốt cho tim mạch, giàu chất xơ beta-glucan.",
     brand: "Quaker",
     origin: "Mỹ",
-    imageUrl: "assets/food/wheat.webp",
+    image: "assets/foods/wheat.webp",
   ),
   Food(
     name: "Khoai lang luộc",
@@ -49,7 +50,7 @@ List<Food> foodSamples = [
     unit: "100g",
     description: "Thực phẩm giàu chất xơ, đường tự nhiên, tốt cho hệ tiêu hóa.",
     origin: "Việt Nam",
-    imageUrl: "assets/food/sweetpotato.webp",
+    image: "assets/foods/sweetpotato.webp",
   ),
   Food(
     name: "Cá hồi phi lê",
@@ -61,7 +62,7 @@ List<Food> foodSamples = [
     unit: "100g",
     description: "Nguồn protein cao cấp, giàu omega-3 tốt cho tim mạch và não.",
     origin: "Na Uy",
-    imageUrl: "assets/food/salmon.jpg",
+    image: "assets/foods/salmon.jpg",
   ),
   Food(
     name: "Bông cải xanh hấp",
@@ -73,7 +74,7 @@ List<Food> foodSamples = [
     unit: "100g",
     description: "Chứa nhiều vitamin C, chất xơ và chất chống oxy hóa.",
     origin: "Việt Nam",
-    imageUrl: "assets/food/brocolli.jpg",
+    image: "assets/foods/brocolli.jpg",
   ),
   Food(
     name: "Chuối chín",
@@ -85,7 +86,7 @@ List<Food> foodSamples = [
     unit: "100g (~1 quả)",
     description: "Nguồn năng lượng nhanh, giàu kali và vitamin B6.",
     origin: "Việt Nam",
-    imageUrl: "assets/food/banana.webp",
+    image: "assets/foods/banana.webp",
   ),
   Food(
     name: "Cơm trắng",
@@ -97,7 +98,7 @@ List<Food> foodSamples = [
     unit: "100g (1 bát nhỏ)",
     description: "Nguồn cung cấp năng lượng chính, dễ tiêu hóa.",
     origin: "Việt Nam",
-    imageUrl: "assets/food/rice.webp",
+    image: "assets/foods/rice.webp",
   ),
   Food(
     name: "Đậu hũ trắng",
@@ -109,7 +110,7 @@ List<Food> foodSamples = [
     unit: "100g",
     description: "Nguồn protein thực vật tốt, chứa canxi và sắt.",
     origin: "Việt Nam",
-    imageUrl: "assets/food/tofu.jpg",
+    image: "assets/foods/tofu.jpg",
   ),
   Food(
     name: "Sữa chua không đường",
@@ -122,6 +123,7 @@ List<Food> foodSamples = [
     description: "Giàu probiotics, tốt cho hệ tiêu hóa và miễn dịch.",
     brand: "Vinamilk",
     origin: "Việt Nam",
-    imageUrl: "assets/food/yoghurt.webp",
+    image: "assets/foods/yoghurt.webp",
   ),
 ];
+

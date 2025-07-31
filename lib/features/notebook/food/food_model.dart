@@ -11,6 +11,7 @@ class Food {
   String? origin;
   String? description;
   String? imageUrl;
+  String? image;
 
   Food({
     this.id,
@@ -25,7 +26,9 @@ class Food {
     this.origin,
     this.description,
     this.imageUrl,
+    this.image,
   });
+
 
   factory Food.fromMap(Map<String, dynamic> json) => Food(
     id: json['id'],
@@ -40,7 +43,9 @@ class Food {
     origin: json['origin'],
     description: json['description'],
     imageUrl: json['imageUrl'],
+    image: json['image'],
   );
+
 
   Map<String, dynamic> toMap() => {
     'id': id,
@@ -55,5 +60,6 @@ class Food {
     'origin': origin,
     'description': description,
     'imageUrl': imageUrl,
+    'image': image,
   };
 }

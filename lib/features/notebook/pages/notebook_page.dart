@@ -1,3 +1,4 @@
+import 'package:fitjourney/features/notebook/pharmacy/pharmacy_category_page.dart';
 import 'package:fitjourney/features/notebook/pharmacy/pharmacy_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:fitjourney/features/notebook/whey/whey_list_page.dart';
@@ -6,6 +7,7 @@ import 'package:fitjourney/features/notebook/exercises/exercises_list_page.dart'
 import 'package:fitjourney/features/notebook/exercises/exercises_subgroup_page.dart';
 import 'package:fitjourney/features/notebook/exercises/exercises_group_page.dart';
 import 'package:fitjourney/features/notebook/food/food_list_page.dart';
+import 'package:fitjourney/features/notebook/food/food_group_page.dart';
 import 'package:fitjourney/features/notebook/whey/whey_category_page.dart';
 import 'package:fitjourney/features/notebook/pharmacy/pharmacy_list_page.dart';
 import 'package:fitjourney/features/notebook/pharmacy/pharmacy_model.dart';
@@ -43,7 +45,8 @@ class NotebookScreen extends StatelessWidget {
         'onTap': (BuildContext ctx) {
           Navigator.push(
             ctx,
-            MaterialPageRoute(builder: (_) => const FoodListPage()),
+            MaterialPageRoute(builder: (_) =>  FoodGroupPage()),
+
           );
         },
       },
@@ -53,7 +56,7 @@ class NotebookScreen extends StatelessWidget {
         'onTap': (BuildContext ctx) {
           Navigator.push(
             ctx,
-            MaterialPageRoute(builder: (_) => const PharmacyListPage()),
+            MaterialPageRoute(builder: (_) => PharmacyCategoryPage()),
           );
         },
       },
@@ -70,7 +73,6 @@ class NotebookScreen extends StatelessWidget {
     ];
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Sổ tay')),
       body: Scrollbar(
         thumbVisibility: true,
         child: ListView(

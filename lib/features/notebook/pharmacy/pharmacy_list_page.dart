@@ -4,21 +4,21 @@ import 'package:fitjourney/features/notebook/pharmacy/pharmacy_data.dart';
 import 'pharmacy_detail_page.dart';
 
 class PharmacyListPage extends StatelessWidget {
-  final String? type;
+  final String? category;
 
-  const PharmacyListPage({super.key, this.type});
+  const PharmacyListPage({super.key, this.category});
 
   @override
   Widget build(BuildContext context) {
-    final List<Pharmacy> filtered = (type == null || type!.trim().isEmpty)
+    final List<Pharmacy> filtered = (category == null || category!.trim().isEmpty)
         ? pharmacySamples
         : pharmacySamples
-        .where((p) => p.type.toLowerCase() == type!.toLowerCase())
+        .where((p) => p.category?.toLowerCase() == category!.toLowerCase())
         .toList();
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Danh sách Thuốc' + (type != null ? ' – $type' : '')),
+        title: Text('Danh sách thuốc' + (category != null ? ' – $category' : '')),
       ),
       body: ListView.builder(
         itemCount: filtered.length,
@@ -27,24 +27,20 @@ class PharmacyListPage extends StatelessWidget {
           Widget leading;
 
           if (p.imageUrl != null) {
-            if (p.imageUrl!.startsWith('assets/')) {
-              leading = Image.asset(
-                p.imageUrl!,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-              );
-            } else {
-              leading = Image.network(
-                p.imageUrl!,
-                width: 50,
-                height: 50,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) => const Icon(Icons.broken_image),
-              );
-            }
+            final imgWidget = p.imageUrl!.startsWith('assets/')
+                ? Image.asset(p.imageUrl!, fit: BoxFit.cover)
+                : Image.network(
+              p.imageUrl!,
+              fit: BoxFit.cover,
+              errorBuilder: (_, __, ___) => const Icon(Icons.broken_image),
+            );
+
+            leading = ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: SizedBox(width: 50, height: 50, child: imgWidget),
+            );
           } else {
-            leading = const Icon(Icons.medication_outlined);
+            leading = const Icon(Icons.medication_outlined, size: 40);
           }
 
           return Card(
@@ -52,11 +48,8 @@ class PharmacyListPage extends StatelessWidget {
             elevation: 2,
             child: ListTile(
               leading: leading,
-              title: Text(
-                p.name,
-                style: const TextStyle(fontWeight: FontWeight.bold),
-              ),
-              subtitle: Text('${p.price.toStringAsFixed(0)}đ • ${p.brand ?? "—"}'),
+              title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.bold)),
+              subtitle: Text('${_formatPrice(p.price)} • ${p.brand ?? "—"}'),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
                 Navigator.push(
@@ -72,4 +65,9 @@ class PharmacyListPage extends StatelessWidget {
       ),
     );
   }
+
+  String _formatPrice(double price) {
+    return '${price.toStringAsFixed(0).replaceAllMapped(RegExp(r'\B(?=(\d{3})+(?!\d))'), (match) => '.')}đ';
+  }
 }
+

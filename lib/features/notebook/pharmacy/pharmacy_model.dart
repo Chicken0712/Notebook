@@ -1,21 +1,22 @@
 class Pharmacy {
   int? id;
   String name;
-  String type; // loại thuốc (viên, siro, gel...)
-  double quantity; // số lượng (viên, ml...)
+  String type;
+  double quantity;
   double price;
-  String usage; // cách dùng, liều lượng
+  String usage;
   String note;
 
   // --- Thêm chi tiết ---
   String? brand;
   String? origin;
-  String? ingredient; // hoạt chất chính
-  String? effect; // công dụng chính
+  String? ingredient;
+  String? effect;
   String? sideEffects;
-  String? storage; // bảo quản
+  String? storage;
   String? expiryDate;
   String? imageUrl;
+  String? category;
 
   Pharmacy({
     this.id,
@@ -33,6 +34,7 @@ class Pharmacy {
     this.storage,
     this.expiryDate,
     this.imageUrl,
+    this.category, // ✅ MỚI THÊM
   });
 
   factory Pharmacy.fromMap(Map<String, dynamic> json) => Pharmacy(
@@ -51,6 +53,7 @@ class Pharmacy {
     storage: json['storage'],
     expiryDate: json['expiryDate'],
     imageUrl: json['imageUrl'],
+    category: json['category'],
   );
 
   Map<String, dynamic> toMap() => {
@@ -69,5 +72,6 @@ class Pharmacy {
     'storage': storage,
     'expiryDate': expiryDate,
     'imageUrl': imageUrl,
+    'category': category,
   };
 }

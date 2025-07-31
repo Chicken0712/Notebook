@@ -9,70 +9,144 @@ class PharmacyDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text(pharmacy.name)),
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              if (pharmacy.imageUrl != null)
-                Center(
-                  child: pharmacy.imageUrl!.startsWith('assets/')
-                      ? Image.asset(
-                    pharmacy.imageUrl!,
-                    height: 200,
-                    fit: BoxFit.contain,
-                  )
-                      : Image.network(
-                    pharmacy.imageUrl!,
-                    height: 200,
-                    fit: BoxFit.contain,
-                    errorBuilder: (_, __, ___) =>
-                    const Icon(Icons.broken_image, size: 100),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Ảnh sản phẩm bo góc
+            if (pharmacy.imageUrl != null)
+              ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: pharmacy.imageUrl!.startsWith('assets/')
+                    ? Image.asset(
+                  pharmacy.imageUrl!,
+                  height: 220,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                )
+                    : Image.network(
+                  pharmacy.imageUrl!,
+                  height: 220,
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                  errorBuilder: (_, __, ___) =>
+                  const Icon(Icons.broken_image, size: 100),
+                ),
+              )
+            else
+              const Center(child: Icon(Icons.medication_liquid, size: 100)),
+
+            const SizedBox(height: 16),
+
+            // Thông tin chính
+            Card(
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+              elevation: 4,
+              margin: const EdgeInsets.only(bottom: 16),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text("🧴 Thông tin thuốc",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 12),
+                    _buildInfoRow(Icons.category, "Loại", pharmacy.type, Colors.blueGrey),
+                    _buildInfoRow(Icons.format_list_numbered, "Số lượng", "${pharmacy.quantity}", Colors.teal),
+                    _buildInfoRow(Icons.price_check, "Giá", "${pharmacy.price}đ", Colors.green),
+                    if (pharmacy.brand != null)
+                      _buildInfoRow(Icons.factory, "Thương hiệu", pharmacy.brand!, Colors.brown),
+                    if (pharmacy.origin != null)
+                      _buildInfoRow(Icons.flag, "Xuất xứ", pharmacy.origin!, Colors.red),
+                    if (pharmacy.expiryDate != null)
+                      _buildInfoRow(Icons.event, "Hạn sử dụng", pharmacy.expiryDate!, Colors.deepOrange),
+                    if (pharmacy.category != null)
+                      _buildInfoRow(Icons.medical_information, "Phân loại", pharmacy.category!, Colors.purple),
+                  ],
+                ),
+              ),
+            ),
+
+            // Chi tiết công dụng & thành phần
+            if (pharmacy.ingredient != null || pharmacy.effect != null || pharmacy.sideEffects != null)
+              Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                elevation: 3,
+                margin: const EdgeInsets.only(bottom: 16),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("💊 Thành phần & Công dụng",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 12),
+                      if (pharmacy.ingredient != null)
+                        _buildInfoRow(Icons.science, "Thành phần", pharmacy.ingredient!, Colors.indigo),
+                      if (pharmacy.effect != null)
+                        _buildInfoRow(Icons.health_and_safety, "Công dụng", pharmacy.effect!, Colors.green),
+                      if (pharmacy.sideEffects != null)
+                        _buildInfoRow(Icons.warning, "Tác dụng phụ", pharmacy.sideEffects!, Colors.redAccent),
+                    ],
                   ),
                 ),
-              const SizedBox(height: 16),
-              const Text(
-                "🧴 Thông tin thuốc",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
-              Text("• Loại: ${pharmacy.type}"),
-              Text("• Số lượng: ${pharmacy.quantity}"),
-              Text("• Giá: ${pharmacy.price}đ"),
-              if (pharmacy.brand != null) Text("• Thương hiệu: ${pharmacy.brand}"),
-              if (pharmacy.origin != null) Text("• Xuất xứ: ${pharmacy.origin}"),
-              if (pharmacy.expiryDate != null) Text("• Hạn sử dụng: ${pharmacy.expiryDate}"),
-              if (pharmacy.ingredient != null) Text("• Thành phần: ${pharmacy.ingredient}"),
-              if (pharmacy.effect != null) Text("• Công dụng: ${pharmacy.effect}"),
-              if (pharmacy.sideEffects != null) Text("• Tác dụng phụ: ${pharmacy.sideEffects}"),
-              if (pharmacy.storage != null) Text("• Bảo quản: ${pharmacy.storage}"),
-              const SizedBox(height: 12),
-              if (pharmacy.usage.isNotEmpty)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Cách dùng:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(pharmacy.usage),
-                  ],
+
+            // Hướng dẫn dùng & bảo quản
+            if (pharmacy.usage.isNotEmpty || pharmacy.storage != null || pharmacy.note.isNotEmpty)
+              Card(
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                elevation: 2,
+                margin: const EdgeInsets.only(bottom: 16),
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text("📋 Hướng dẫn sử dụng",
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                      const SizedBox(height: 12),
+                      if (pharmacy.usage.isNotEmpty)
+                        _buildInfoRow(Icons.check, "Cách dùng", pharmacy.usage, Colors.blue),
+                      if (pharmacy.storage != null)
+                        _buildInfoRow(Icons.thermostat, "Bảo quản", pharmacy.storage!, Colors.brown),
+                      if (pharmacy.note.isNotEmpty)
+                        _buildInfoRow(Icons.note, "Ghi chú", pharmacy.note, Colors.deepPurple),
+                    ],
+                  ),
                 ),
-              const SizedBox(height: 12),
-              if (pharmacy.note.isNotEmpty)
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      "Ghi chú:",
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                    Text(pharmacy.note),
-                  ],
-                ),
-            ],
-          ),
+              ),
+          ],
         ),
+      ),
+    );
+  }
+
+  // Hàm tiện ích tạo dòng thông tin có icon + nhấn mạnh label
+  Widget _buildInfoRow(IconData icon, String label, String value, Color iconColor) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 6),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(icon, size: 22, color: iconColor),
+          const SizedBox(width: 10),
+          Expanded(
+            child: RichText(
+              text: TextSpan(
+                style: const TextStyle(fontSize: 16, color: Colors.black),
+                children: [
+                  TextSpan(
+                    text: "$label: ",
+                    style: const TextStyle(fontWeight: FontWeight.w600),
+                  ),
+                  TextSpan(text: value),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
