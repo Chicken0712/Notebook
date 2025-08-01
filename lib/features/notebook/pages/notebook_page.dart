@@ -9,7 +9,6 @@ import 'package:fitjourney/features/notebook/exercises/exercises_group_page.dart
 import 'package:fitjourney/features/notebook/food/food_list_page.dart';
 import 'package:fitjourney/features/notebook/food/food_group_page.dart';
 import 'package:fitjourney/features/notebook/whey/whey_category_page.dart';
-import 'package:fitjourney/features/notebook/pharmacy/pharmacy_list_page.dart';
 import 'package:fitjourney/features/notebook/pharmacy/pharmacy_model.dart';
 import 'package:fitjourney/features/notebook/encyclopedia/encyclopedia_model.dart';
 import 'package:fitjourney/features/notebook/encyclopedia/encyclopedia_list_page.dart';
